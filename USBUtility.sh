@@ -1,12 +1,17 @@
 #!/bin/bash
-##PLEASE READ README.MD BEFORE USE
-clear
-echo "WARNING PLEASE CONSULT README.MD BEFORE USE"
-read -p "Chose Functionality [ Flash | Restore ]: " TOOL
 
 function devider() {
-	echo "----------------------------------------------------------"
+
+        echo "----------------------------------------------------------"
+
 }
+
+clear
+echo "WARNING: PLEASE CONSULT README.MD BEFORE USE"
+devider
+echo "WARNING: Restore tool is not working completley as intended, use at your own risk"
+read -p "Chose Functionality [ Flash | Restore ]: " TOOL
+
 if [ $TOOL == "Flash" ]
 then
 	clear

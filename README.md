@@ -1,4 +1,4 @@
-Bootable Media Creation Tool by Cyber-Heathen
+Bootable Media Creation Tool by Fr3ki
 
 
 
@@ -14,7 +14,7 @@ Warning: This script assumes you keep your ISO files in a folder ~/Downloads/ISO
 1) Create the folder Downloads/ISO and move respective files there.
 2) Change the line "cd ~/Downloads/ISO" to "cd ~/path/Your ISO folder here/"
 	 ~ denotes your home folder
-------------------------------------------------------------------------------------------------------------------
+____________________________________________________________________________________________________________________
 
 Thank you for using, and please leave any suggestions or feedback in a github comment or on my website [COMMING SOON] 
 

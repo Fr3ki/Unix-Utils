@@ -20,7 +20,7 @@ echo "WARNING: Restore tool is not working completley as intended, use at your o
 
 #Storing input as a variable "TOOL"
 
-read -p "Chose Functionality [ Flash | Restore ]: " TOOL
+read -p "Chose Functionality [ Flash | Restore | Quit ]: " TOOL
 
 #Bootable USB tool
 
@@ -113,7 +113,10 @@ then
 	#Done message
 	echo "Done! You may now use your device."
 
-
+elif [ $TOOL == "Quit" ]
+then
+	exit
+	
 ##Usage tool UNDER CONSTRUCTION
 #elif [ $TOOL == "Usage" ]
 #then

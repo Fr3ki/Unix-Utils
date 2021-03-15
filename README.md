@@ -18,4 +18,4 @@ ________________________________________________________________________________
 
 Thank you for using, and please leave any suggestions or feedback in a github comment or on my website [COMMING SOON] 
 
-Also consider donating crypto to keep my completely free and open source software maintained. It's by no means required but greatly appreciated and helps out a lot, thank you.
+If you would like to support me and my work, which will always be free and open source, check the finance.yml, never required, but always appreciated!

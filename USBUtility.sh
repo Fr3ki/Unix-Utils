@@ -1,5 +1,6 @@
 #!/bin/bash
 #Simple function to make a devider between elements
+
 function devider() {
 
         echo "----------------------------------------------------------"
@@ -24,7 +25,7 @@ read -p "Chose Functionality [ Flash | Restore | Quit ]: " TOOL
 
 #Bootable USB tool
 
-if [ $TOOL == "Flash" ]
+if [ ${TOOL,,} == "flash" || ${TOOL,,} == "f"]
 then
 	clear
 	echo "  
@@ -79,7 +80,7 @@ then
 
 #Media Restoration tool
 
-elif [ $TOOL == "Restore" ]
+elif [ ${TOOL,,} == "restore" || ${TOOL,,} == "r"]
 then
 	clear
 	echo " 
@@ -105,20 +106,20 @@ then
 	
 	#Instructions
 	
-	echo "Select gpt label and create a new partiton, then write and quit"
+	echo "Select DOS label and create a new primary partiton, then write and quit"
 	sleep 10s
 	
 	#Restoration
 	sudo mkfs.ext4 /dev/$SELECTION && sudo cfdisk /dev/$SELECTION
 	#Done message
-	echo "Done! You may now use your device."
+	clear && echo "Done! You may now use your device."
 
-elif [ $TOOL == "Quit" ]
+elif [ ${TOOL,,} == "quit" || ${TOOL,,} == "q"]
 then
 	exit
 	
 ##Usage tool UNDER CONSTRUCTION
-#elif [ $TOOL == "Usage" ]
+#elif [ ${TOOL,,} == "usage" || ${TOOL,,} == "u"]
 #then
 #	clear
 #	devider

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env
 #Simple function to make a devider between elements
 
 function devider() {

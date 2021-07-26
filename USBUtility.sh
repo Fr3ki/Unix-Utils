@@ -25,10 +25,10 @@ read -p "Chose Functionality [ Flash | Restore | Quit ]: " TOOL
 
 #Bootable USB tool
 
-if [ ${TOOL,,} == "flash" ]
+if [ ${TOOL,,} == "flash" ] | [ ${TOOL,,} == "f" ]
 then
 	clear
-	echo "  
+  echo "  
   ___           _        _    _       __  __        _ _         ___              _   _            _____         _ 
  | _ ) ___  ___| |_ __ _| |__| |___  |  \/  |___ __| (_)__ _   / __|_ _ ___ __ _| |_(_)___ _ _   |_   _|__  ___| |
  | _ \/ _ \/ _ \  _/ _  |  _ \ / -_) | |\/| / -_) _  | / _  | | (__|  _/ -_) _  |  _| / _ \   \    | |/ _ \/ _ \ |
@@ -80,7 +80,7 @@ then
 
 #Media Restoration tool
 
-elif [ ${TOOL,,} == "restore" ]
+elif [ ${TOOL,,} == "restore" ] | [ ${TOOL,,} == "r" ] 
 then
 	clear
 	echo " 
@@ -114,7 +114,7 @@ then
 	#Done message
 	clear && echo "Done! You may now use your device."
 
-elif [ ${TOOL,,} == "quit" ]
+elif [ ${TOOL,,} == "quit" ] | [ ${TOOL,,} == "q" ]
 then
 	exit
 	

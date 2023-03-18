@@ -1,39 +1,32 @@
 #!/usr/bin/env
+
 #Simple function to make a devider between elements
-
-function devider() {
-
-        echo "----------------------------------------------------------"
-
+function devider() { echo "----------------------------------------------------------"
 }
 
 clear
 
 #Warning
 
-echo "WARNING: PLEASE CONSULT README.MD BEFORE USE"
+echo "WARNING: Improper use of this tool can result in loss of data, consult Readme for questions."
 
 devider
 
-#Disclaimer
-
-echo "WARNING: Restore tool is not working completley as intended, use at your own risk"
-
 #Storing input as a variable "TOOL"
 
-read -p "Chose Functionality [ Flash | Restore | Quit ]: " TOOL
+read -p "Select a tool [ Flash | Format | Wipe | Quit ]: " TOOL
 
 #Bootable USB tool
 
-if [ ${TOOL,,} == "flash" ] | [ ${TOOL,,} == "f" ]
+if [ ${TOOL,,} == "flash" ] || [ ${TOOL,,} == "f" ]
 then
 	clear
   echo "  
-  ___           _        _    _       __  __        _ _         ___              _   _            _____         _ 
- | _ ) ___  ___| |_ __ _| |__| |___  |  \/  |___ __| (_)__ _   / __|_ _ ___ __ _| |_(_)___ _ _   |_   _|__  ___| |
- | _ \/ _ \/ _ \  _/ _  |  _ \ / -_) | |\/| / -_) _  | / _  | | (__|  _/ -_) _  |  _| / _ \   \    | |/ _ \/ _ \ |
- |___/\___/\___/\__\__,_|_.__/_\___| |_|  |_\___\__,_|_\__,_|  \___|_| \___\__,_|\__|_\___/_||_|   |_|\___/\___/_|"
- 	
+___  ____ ____ ___ ____ ___  _    ____    _  _ ____ ___  _ ____    ____ ____ ____ ____ ___ _ ____ _  _    ___ ____ ____ _    
+|__] |  | |  |  |  |__| |__] |    |___    |\/| |___ |  \ | |__|    |    |__/ |___ |__|  |  | |  | |\ |     |  |  | |  | |    
+|__] |__| |__|  |  |  | |__] |___ |___    |  | |___ |__/ | |  |    |___ |  \ |___ |  |  |  | |__| | \|     |  |__| |__| |___ 
+                                                                                                                             
+"
 	#Change directory to home and then to your Downloads/ISO folder
 	
 	cd ~/
@@ -61,35 +54,42 @@ then
 	sleep 1s
 	
 	#List drives
-	
 	lsblk
 	devider
 	
 	#Take drive selection and store it in var "DRIVE"
-	
 	read -p "Select drive [WARNING DO NOT CHOSE YOUR BOOT DRIVE] : " DRIVE 
 	clear
 	
 	#Warning #2
-	
-	echo "DO NOT CLOSE TERMINAL THIS NORMALLY TAKES A WHILE"
+	echo "DO NOT CLOSE YOUR TERMINAL THIS NORMALLY TAKES A WHILE"
 	
 	#Take "DRIVE" and flash "ISO" once finished 
+	sudo dd if=$ISO of=/dev/$DRIVE &
 	
-	sudo dd if=$ISO of=/dev/$DRIVE && clear &&  echo "Done! You may now close your cli."
+	#A loop to let the user know the tool is working
+	while ps all | grep -q "[d]d"; do
+		clear && echo "Flashing Drive..."
+		sleep 3s
+		clear && echo "Working..."
+		sleep 3s
+	done
+
+	clear && echo "Drive flashed successfully"
+
 
 #Media Restoration tool
 
-elif [ ${TOOL,,} == "restore" ] | [ ${TOOL,,} == "r" ] 
+elif [ ${TOOL,,} == "format" ] || [ ${TOOL,,} == "fm" ] 
 then
 	clear
 	echo " 
+_  _ ____ ___  _ ____    ____ ____ ____ _  _ ____ ___ ___ _ _  _ ____    ___ ____ ____ _    
+|\/| |___ |  \ | |__|    |___ |  | |__/ |\/| |__|  |   |  | |\ | | __     |  |  | |  | |    
+|  | |___ |__/ | |  |    |    |__| |  \ |  | |  |  |   |  | | \| |__]     |  |__| |__| |___ 
 
-  __  __        _ _        ___        _                _   _            _____         _ 
- |  \/  |___ __| (_)__ _  | _ \___ __| |_ ___ _ _ __ _| |_(_)___ _ _   |_   _|__  ___| |
- | |\/| / -_) _  | / _  | |   / -_|_-<  _/ _ \ '_/ _  |  _| / _ \   \    | |/ _ \/ _ \ |
- |_|  |_\___\__,_|_\__,_| |_|_\___/__/\__\___/_| \__,_|\__|_\___/_||_|   |_|\___/\___/_| "
-	
+"
+
 	#List Drives
 	
 	lsblk
@@ -103,31 +103,45 @@ then
 	#Warning
 	echo "WARNING THIS WILL ERASE DRIVE TO QUIT: Ctrl + C"
 	sleep 2s
-	
-	#Instructions
-	
-	echo "Select DOS label and create a new primary partiton, then write and quit"
-	sleep 10s
-	
-	#Restoration
-	sudo mkfs.ext4 /dev/$SELECTION && sudo cfdisk /dev/$SELECTION
+	devider
+	echo "Formats: EXT4, VFAT, NTFS"
+	devider
+	read -p "Select a format: " FORMAT
+
+	#Formatting
+	echo -e "n\np\n1\n\n\nw" | sudo fdisk /dev/$SELECTION && sudo mkfs.$FORMAT /dev/$SELECTION\1
 	#Done message
 	clear && echo "Done! You may now use your device."
 
-elif [ ${TOOL,,} == "quit" ] | [ ${TOOL,,} == "q" ]
+elif [ ${TOOL,,} == "wipe" ] || [ ${TOOL,,} == "w" ]
+then
+	#Bad idea man
+	echo "DO NOT SELECT YOUR BOOT DRIVE"
+	devider
+	
+	#List available drives
+	lsblk
+	devider
+	
+	#Select the drive to wipe
+	read -p "Select a device: " SELECTION
+
+	#Kaboom
+	shred /dev/$SELECTION
+
+	#Just a little loop to let the user know the tool is working
+	while ps all | grep -q "[s]hred"; do
+		clear && echo "Securely destroying data..."
+		sleep 3s
+		clear && echo "Wiping..."
+		sleep 3s
+	done && echo "Data has been securely destroyed, re-run the tool if extra assurance is needed"
+
+
+elif [ ${TOOL,,} == "quit" ] || [ ${TOOL,,} == "q" ]
 then
 	exit
 	
-##Usage tool UNDER CONSTRUCTION
-#elif [ ${TOOL,,} == "usage" || ${TOOL,,} == "u"]
-#then
-#	clear
-#	devider
-#	cd /
-#	ls
-#	devider
-#	read -p "Select path or drive: " SELECTION
-#	du -h $SELECTION/
 else
 	clear
 	echo "Error: Select a valid tool."

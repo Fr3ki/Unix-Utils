@@ -1,8 +1,7 @@
 Bootable Media Creation Tool by Fr3ki
 
 
-
-This is a semi-graphical cli tool for intermediate users to flash bootable media, or restore disk to ext4 storage device.
+This is a semi-graphical cli tool for intermediate users to flash, format, or wipe a device.
 
 ___________________________________________________________________________________________________________________
 Warning: Using this on the wrong drive will wipe your system. You have been warned, I am not liable for any damages caused by mishaps or missuse. 
@@ -17,5 +16,3 @@ Warning: This script assumes you keep your ISO files in a folder ~/Downloads/ISO
 ____________________________________________________________________________________________________________________
 
 Thank you for using, and please leave any suggestions or feedback in a github comment or on my website [COMMING SOON] 
-
-If you would like to support me and my work, which will always be free and open source, check the finance.yml, never required, but always appreciated!
